@@ -8,6 +8,12 @@ defmodule Todophx.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {Desktop.Window,
+       [
+         app: :todophx,
+         id: Todophx,
+         url: &TodophxWeb.Endpoint.url/0
+       ]},
       # Start the Ecto repository
       Todophx.Repo,
       # Start the Telemetry supervisor

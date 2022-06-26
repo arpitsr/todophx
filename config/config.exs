@@ -58,6 +58,10 @@ config :tailwind,
     cd: Path.expand("../assets", __DIR__)
   ]
 
+config :todophx, TodophxWeb.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 0],
+  server: true
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
