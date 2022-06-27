@@ -104,24 +104,24 @@ defmodule TodophxWeb.ProjectLive do
         <SidenavComponent.render show_modal={@show_modal} projects={@projects}/>
       </div>
       <div class="w-3/4">
-        <div class="w-4/5 mx-auto py-8">
-          <div class="text-xl font-bold mb-8"><%= @project.name %></div>
+        <div class="w-4/5 py-8 mx-auto">
+          <div class="mb-8 text-xl font-bold"><%= @project.name %></div>
             <div id="tasks" phx-update="append">
               <%= for task <- @tasks do %>
-                <div x-data="" class="flex mb-2" id={"task-"<>to_string(task.id)}>
+                <div class="flex mb-2" id={"task-"<>to_string(task.id)}>
                   <.form let={f} for={Work.change_task(task)} phx-change="update-task-state" class="flex justify-between w-full">
-                    <label class="w-4/5 flex gap-2 items-center">
+                    <label class="flex items-center w-4/5 gap-2">
                       <%= hidden_input f, :id ,id: "hidden-input" <> to_string(task.id), value: task.id %>
                       <%= checkbox f, :done, class: "w-4 h-4 rounded", id: "task-checkbox-" <> to_string(task.id) %>
-                      <div class={get_strike_css(task.done) <> "w-4/5"}><%= task.name %></div>
+                      <div class={get_strike_css(task.done) <> " w-4/5"}><%= task.name %></div>
                       <div class={get_strike_css(task.done)}>
                         <% {:ok, formatted_time} = Timex.format(task.due_date, "{Mshort} {D} {YYYY}") %>
-                        <div class="text-gray-400 text-right text-sm">Due: <%= formatted_time %></div>
+                        <div class="text-sm text-right text-gray-400">Due: <%= formatted_time %></div>
                       </div>
                     </label>
                     <!-- Delete task -->
                     <div phx-hook="TaskAction" id={"task-delete-" <> to_string(task.id)} data-task_id={task.id}>
-                    <i class="transition ease-in-out text-gray-300  hover:text-red-600 ri-delete-bin-3-line"></i>
+                    <i class="text-gray-300 transition ease-in-out hover:text-red-600 ri-delete-bin-3-line"></i>
                     </div>
                   </.form>
                 </div>

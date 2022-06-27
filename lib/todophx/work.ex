@@ -113,6 +113,10 @@ defmodule Todophx.Work do
       [%Task{}, ...]
 
   """
+  def all_tasks() do
+    Repo.all(Task)
+  end
+
   def list_tasks(project_id) do
     Repo.all(
       from t in Task,

@@ -11,7 +11,7 @@ defmodule TodophxWeb.SidenavComponent do
       <section class="flex flex-col gap-3">
         <div class="flex gap-4">
           <i class="ri-calendar-2-line"></i>
-          <div>Today</div>
+          <a href="/today">Today</a>
         </div>
         <div class="flex gap-4">
           <i class="ri-notification-badge-line"></i>
@@ -19,7 +19,7 @@ defmodule TodophxWeb.SidenavComponent do
         </div>
       </section>
       <section class="flex flex-col gap-3 mt-16">
-        <div class="text-xl font-bold flex gap-2 justify-between">
+        <div class="flex justify-between gap-2 text-xl font-bold">
           <div>Projects</div>
           <a href="#" phx-click="new_project">+</a>
         </div>
@@ -36,7 +36,7 @@ defmodule TodophxWeb.SidenavComponent do
               </div>
             </a>
             <div phx-hook="ProjectAction" id={"project-delete-" <> to_string(project.id)} data-project_id={project.id}>
-              <i class="transition ease-in-out text-gray-300 hover:text-red-600 ri-delete-bin-3-line  hover:cursor-pointer"></i>
+              <i class="text-gray-300 transition ease-in-out hover:text-red-600 ri-delete-bin-3-line hover:cursor-pointer"></i>
             </div>
             </div>
           <% end %>
