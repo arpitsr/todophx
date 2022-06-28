@@ -52,7 +52,7 @@ defmodule TodophxWeb.ProjectLive do
     Work.delete_project(Work.get_project!(project_id))
     # {:reply, %{hello: "world"}, socket}
 
-    {:noreply, push_redirect(socket, to: TodophxWeb.Router.Helpers.home_path(socket, :index))}
+    {:noreply, push_redirect(socket, to: TodophxWeb.Router.Helpers.today_path(socket, :index))}
   end
 
   def handle_event(

@@ -120,3 +120,38 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
+
+document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
+  console.log("woh wala");
+
+  let buffer = [];
+  let lastKeyTime = Date.now();
+
+  document.addEventListener("keydown", (event) => {
+    const charList = "npt";
+    const key = event.key.toLowerCase();
+
+    // we are only interested in alphanumeric keys
+    if (charList.indexOf(key) === -1) return;
+
+    const currentTime = Date.now();
+
+    if (currentTime - lastKeyTime > 1000) {
+      buffer = [];
+    }
+
+    buffer.push(key);
+    lastKeyTime = currentTime;
+    console.log(buffer);
+    if (buffer.length > 1 && buffer[0] == "n" && buffer[1] == "p") {
+      document.getElementById("topnav-new-project").click();
+    }
+    if (buffer.length > 1 && buffer[0] == "n" && buffer[1] == "t") {
+      document.getElementById("task_name").focus();
+      event.preventDefault();
+    }
+
+    console.log(buffer);
+  });
+});

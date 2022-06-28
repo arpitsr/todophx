@@ -18,7 +18,7 @@ defmodule TodophxWeb.Router do
     pipe_through :browser
 
     live "/projects/:id", ProjectLive
-    live "/", HomeLive, :index
+    live "/", TodayLive, :index
     live "/today", TodayLive, :index
   end
 

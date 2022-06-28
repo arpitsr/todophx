@@ -12,6 +12,9 @@ defmodule Todophx.Application do
        [
          app: :todophx,
          id: Todophx,
+         ize: {600, 500},
+         title: "Todophx",
+         icon: "icon.png",
          url: &TodophxWeb.Endpoint.url/0
        ]},
       # Start the Ecto repository
