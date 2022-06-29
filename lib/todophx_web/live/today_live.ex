@@ -13,15 +13,40 @@ defmodule TodophxWeb.TodayLive do
      socket
      |> assign(:show_modal, false)
      |> assign(:projects, Work.list_projects())
-     |> assign(:tasks, tasks)}
+     |> assign(:tasks, tasks), temporary_assigns: [tasks: []]}
   end
 
-  def get_strike_css(state) do
-    if state == true do
-      "line-through"
-    else
-      ""
-    end
+  def handle_event(
+        "new_project",
+        _params,
+        socket
+      ) do
+    {:noreply, socket |> assign(:show_modal, true)}
+  end
+
+  def handle_event(
+        "create-new-project",
+        %{"project" => project_params},
+        socket
+      ) do
+    {:ok, project} = Work.create_project(project_params)
+    socket = socket |> assign(:show_modal, false)
+
+    {:noreply,
+     push_patch(update(socket, :projects, fn projects -> [project | projects] end),
+       to: TodophxWeb.Router.Helpers.live_path(socket, TodophxWeb.ProjectLive, project.id)
+     )}
+  end
+
+  def handle_event("update-task-state", %{"task" => task_params}, socket) do
+    %{"id" => task_id} = task_params
+    task = Work.get_task!(task_id)
+    {:ok, task} = Work.update_task(task, task_params)
+    {:noreply, update(socket, :tasks, fn tasks -> [task | tasks] end)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
   end
 
   def render(assigns) do
@@ -34,29 +59,9 @@ defmodule TodophxWeb.TodayLive do
       <div class="w-3/4">
         <div class="w-4/5 py-8 mx-auto">
           <div class="mb-8 text-xl font-bold">Today</div>
-          <%= for task <- @tasks do %>
-                <div class="flex mb-2" id={"task-"<>to_string(task.id)}>
-                  <.form let={f} for={Work.change_task(task)} phx-change="update-task-state" class="flex justify-between w-full">
-                    <label class="flex items-center w-4/5 gap-2">
-                      <%= hidden_input f, :id ,id: "hidden-input" <> to_string(task.id), value: task.id %>
-                      <%= checkbox f, :done, class: "w-4 h-4 rounded", id: "task-checkbox-" <> to_string(task.id) %>
-                      <div class={get_strike_css(task.done) <> " w-3/5 flex gap-4 items-center"}>
-                        <%= task.name %>
-
-                      </div>
-                      <div class="w-1/5 text-sm text-p1 opacity-90"><%= Todophx.Repo.preload(task, :project).project.name %></div>
-                      <div class={get_strike_css(task.done) <> " w-1/5"}>
-                        <% {:ok, formatted_time} = Timex.format(task.due_date, "{Mshort} {D} {YYYY}") %>
-                        <div class="text-sm text-right text-gray-400">Due: <%= formatted_time %></div>
-                      </div>
-                    </label>
-                    <!-- Delete task -->
-                    <div phx-hook="TaskAction" id={"task-delete-" <> to_string(task.id)} data-task_id={task.id}>
-                    <i class="text-gray-300 transition ease-in-out hover:text-red-600 ri-delete-bin-3-line"></i>
-                    </div>
-                  </.form>
-                </div>
-              <% end %>
+          <div id="tasks" phx-update="append">
+            <TodophxWeb.TaskListComponent.show tasks={@tasks} />
+          </div>
         </div>
       </div>
     </div>

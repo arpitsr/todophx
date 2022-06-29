@@ -3,7 +3,7 @@ defmodule Todophx.Repo.Migrations.TasksAddDueDateColumn do
 
   def change do
     alter table("tasks") do
-      add :due_date, :utc_datetime
+      add :due_date, :date
     end
   end
 end

@@ -5,7 +5,7 @@ defmodule Todophx.Work.Task do
   schema "tasks" do
     field :done, :boolean, default: false
     field :name, :string
-    field :due_date, :utc_datetime
+    field :due_date, :date
     belongs_to :project, Todophx.Work.Project
 
     timestamps()
@@ -14,11 +14,7 @@ defmodule Todophx.Work.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:name, :done, :project_id])
+    |> cast(attrs, [:name, :done, :project_id, :due_date])
     |> validate_required([:name, :done, :project_id])
-    |> put_change(
-      :due_date,
-      DateTime.truncate(DateTime.add(DateTime.utc_now(), 24 * 60 * 60, :second), :second)
-    )
   end
 end
