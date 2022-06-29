@@ -11,17 +11,8 @@ defmodule TodophxWeb.TodayLive do
 
     {:ok,
      socket
-     |> assign(:show_modal, false)
      |> assign(:projects, Work.list_projects())
      |> assign(:tasks, tasks), temporary_assigns: [tasks: []]}
-  end
-
-  def handle_event(
-        "new_project",
-        _params,
-        socket
-      ) do
-    {:noreply, socket |> assign(:show_modal, true)}
   end
 
   def handle_event(
@@ -30,10 +21,9 @@ defmodule TodophxWeb.TodayLive do
         socket
       ) do
     {:ok, project} = Work.create_project(project_params)
-    socket = socket |> assign(:show_modal, false)
 
     {:noreply,
-     push_patch(update(socket, :projects, fn projects -> [project | projects] end),
+     push_redirect(update(socket, :projects, fn projects -> [project | projects] end),
        to: TodophxWeb.Router.Helpers.live_path(socket, TodophxWeb.ProjectLive, project.id)
      )}
   end
@@ -45,6 +35,12 @@ defmodule TodophxWeb.TodayLive do
     {:noreply, update(socket, :tasks, fn tasks -> [task | tasks] end)}
   end
 
+  def handle_event("delete-project", %{"project_id" => project_id}, socket) do
+    Work.delete_project(Work.get_project!(project_id))
+
+    {:noreply, push_redirect(socket, to: TodophxWeb.Router.Helpers.today_path(socket, :index))}
+  end
+
   def handle_params(_params, _uri, socket) do
     {:noreply, socket}
   end
@@ -54,7 +50,7 @@ defmodule TodophxWeb.TodayLive do
     <NavbarComponent.render />
     <div class="flex">
       <div class="w-1/4 bg-gray-50">
-        <SidenavComponent.render show_modal={@show_modal} projects={@projects}/>
+        <SidenavComponent.render projects={@projects}/>
       </div>
       <div class="w-3/4">
         <div class="w-4/5 py-8 mx-auto">

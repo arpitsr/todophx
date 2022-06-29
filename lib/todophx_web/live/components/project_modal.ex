@@ -1,20 +1,20 @@
 defmodule TodophxWeb.ProjectModal do
   use Phoenix.Component
   use Phoenix.HTML
+  alias Phoenix.LiveView.JS
 
   def render(assigns) do
     ~H"""
-    <div>
       <!-- Modal Background -->
-      <div class="modal-container" id={@id}
+      <div class="flex hidden modal-container" id={@id}
           phx-hook="ScrollLock">
-        <div class="modal-inner-container rounded bg-white w-1/3">
+        <div class="w-1/3 bg-white rounded modal-inner-container">
           <div>
             <div class="pb-2">
               <!-- Title -->
-              <div class="text-lg bg-gray-100 rounded px-4 py-2 justify-between flex">
+              <div class="flex justify-between px-4 py-2 text-lg bg-gray-100 rounded">
                 <div>Create new project</div>
-                <button class="text-p4" type="button" phx-click="cancel-modal">
+                <button class="text-p4" type="button" phx-click={JS.add_class("hidden", to: "#new_project", transition: "fade-out")}>
                   <div>&times;</div>
                 </button>
               </div>
@@ -28,8 +28,8 @@ defmodule TodophxWeb.ProjectModal do
                   </div>
                   <div class="flex justify-end mt-8">
                     <!-- Right Button -->
-                    <button class="text-p1 bg-red-100 px-2 py-1 rounded"
-                            type="submit">
+                    <button class="px-2 py-1 bg-red-100 rounded text-p1"
+                            type="submit" phx-click={JS.add_class("hidden", to: "#new_project", transition: "fade-out")}>
                         Create Project
                     </button>
                   </div>
@@ -39,7 +39,6 @@ defmodule TodophxWeb.ProjectModal do
           </div>
         </div>
       </div>
-    </div>
     """
   end
 end

@@ -1,5 +1,6 @@
 defmodule TodophxWeb.NavbarComponent do
   use Phoenix.Component
+  alias Phoenix.LiveView.JS
 
   def render(assigns) do
     ~H"""
@@ -27,7 +28,7 @@ defmodule TodophxWeb.NavbarComponent do
           </button>
         </div>
         <div class="hidden w-full space-x-8 text-right toggle-ham md:flex md:w-auto text-bold md:mt-0">
-          <a href="#" phx-click="new_project" class="px-4 py-1 text-sm text-white border border-white rounded" id="topnav-new-project">+ New project</a>
+          <a href="#" phx-click={JS.remove_class("hidden", to: "#new_project", transition: "fade-in")} class="px-4 py-1 text-sm text-white border border-white rounded" id="topnav-new-project">+ New project</a>
         </div>
       </nav>
     </header>

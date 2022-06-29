@@ -1,5 +1,6 @@
 defmodule TodophxWeb.SidenavComponent do
   use Phoenix.Component
+  alias Phoenix.LiveView.JS
 
   def get_href_project_path(project) do
     "/projects/#{project.id}"
@@ -21,7 +22,7 @@ defmodule TodophxWeb.SidenavComponent do
       <section class="flex flex-col gap-3 mt-16">
         <div class="flex justify-between gap-2 text-xl font-bold">
           <div>Projects</div>
-          <a href="#" phx-click="new_project">+</a>
+          <a href="#" phx-click={JS.remove_class("hidden", to: "#new_project", transition: "fade-in")}>+</a>
         </div>
 
         <div id="projects" phx-update="append">
@@ -42,9 +43,7 @@ defmodule TodophxWeb.SidenavComponent do
           <% end %>
         </div>
       </section>
-      <%= if @show_modal do %>
-        <TodophxWeb.ProjectModal.render id="new_project" />
-      <% end %>
+      <TodophxWeb.ProjectModal.render id="new_project" />
     </div>
     """
   end
@@ -52,16 +51,4 @@ defmodule TodophxWeb.SidenavComponent do
   def mount(socket) do
     {:ok, socket}
   end
-
-  # def handle_info(
-  #       {TodophxWeb.LiveComponent.ModalLive, :button_clicked, %{action: "wonder"}},
-  #       socket
-  #     ) do
-  #   IO.inspect("called button clicked")
-  #   {:noreply, socket}
-  # end
-
-  # def handle_event("new_project", _, socket) do
-  #   {:noreply, socket |> assign(:show_modal, true)}
-  # end
 end

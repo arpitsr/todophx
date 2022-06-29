@@ -15,7 +15,6 @@ defmodule TodophxWeb.ProjectLive do
     {:ok,
      socket
      |> assign(:project_id, project_id)
-     |> assign(:show_modal, false)
      |> assign(:tasks, tasks)
      |> assign(:project, project)
      |> assign(:projects, projects), temporary_assigns: [tasks: []]}
@@ -47,23 +46,6 @@ defmodule TodophxWeb.ProjectLive do
     {:noreply, update(socket, :tasks, fn tasks -> [task | tasks] end)}
   end
 
-  # Project Modal
-  def handle_event(
-        "new_project",
-        _params,
-        socket
-      ) do
-    {:noreply, socket |> assign(:show_modal, true)}
-  end
-
-  def handle_event(
-        "cancel-modal",
-        _params,
-        socket
-      ) do
-    {:noreply, assign(socket, :show_modal, false)}
-  end
-
   # Project CUD
   def handle_event(
         "create-new-project",
@@ -71,17 +53,16 @@ defmodule TodophxWeb.ProjectLive do
         socket
       ) do
     {:ok, project} = Work.create_project(project_params)
-    socket = socket |> assign(:show_modal, false)
 
     {:noreply,
-     push_patch(update(socket, :projects, fn projects -> [project | projects] end),
+     push_redirect(
+       socket,
        to: TodophxWeb.Router.Helpers.live_path(socket, __MODULE__, project.id)
      )}
   end
 
   def handle_event("delete-project", %{"project_id" => project_id}, socket) do
     Work.delete_project(Work.get_project!(project_id))
-    # {:reply, %{hello: "world"}, socket}
 
     {:noreply, push_redirect(socket, to: TodophxWeb.Router.Helpers.today_path(socket, :index))}
   end
