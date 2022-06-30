@@ -56,7 +56,7 @@ defmodule TodophxWeb.TodayLive do
         <div class="w-4/5 py-8 mx-auto">
           <div class="mb-8 text-xl font-bold">Today</div>
           <div id="tasks" phx-update="append">
-            <TodophxWeb.TaskListComponent.show tasks={@tasks} />
+            <TodophxWeb.TaskListComponent.show tasks={@tasks} today={true} />
           </div>
         </div>
       </div>

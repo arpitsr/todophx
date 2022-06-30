@@ -2,10 +2,6 @@ defmodule TodophxWeb.SidenavComponent do
   use Phoenix.Component
   alias Phoenix.LiveView.JS
 
-  def get_href_project_path(project) do
-    "/projects/#{project.id}"
-  end
-
   def render(assigns) do
     ~H"""
     <div class="h-screen p-8">
@@ -19,17 +15,17 @@ defmodule TodophxWeb.SidenavComponent do
           <div>Upcoming</div>
         </div>
       </section>
-      <section class="flex flex-col gap-3 mt-16">
+      <section class="flex flex-col gap-8 mt-16">
         <div class="flex justify-between gap-2 text-xl font-bold">
           <div>Projects</div>
           <a href="#" phx-click={JS.remove_class("hidden", to: "#new_project", transition: "fade-in")}>+</a>
         </div>
 
-        <div id="projects" phx-update="append">
+        <div id="projects" phx-update="append" class="flex flex-col gap-3">
           <%= for project <- @projects do %>
             <div id={"project-" <> to_string(project.id)} class="flex justify-between">
-            <a href={get_href_project_path(project)}>
-              <div class="flex gap-4">
+            <a href={"/projects/" <> to_string(project.id)}>
+              <div class="flex gap-2">
                 <i class="text-sm text-gray-500 pt-0.5 ri-checkbox-blank-circle-fill hover:cursor-pointer"></i>
                 <div class="flex justify-between w-full">
                   <div><%= project.name %></div>
