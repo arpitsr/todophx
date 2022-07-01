@@ -4,10 +4,13 @@
     <SidenavComponent.render projects={@projects} />
   </div>
   <div class="w-3/4">
-    <div class="w-4/5 py-8 mx-auto">
-      <div class="mb-8 text-xl font-bold">Today</div>
+    <div class="w-4/5 py-10 mx-auto">
+      <div class="mb-6 text-xl font-bold">
+        Today
+      </div>
+      <hr class="mb-12" />
       <div id="tasks" phx-update="append">
-        <TodophxWeb.TaskListComponent.show tasks={@tasks} />
+        <TodophxWeb.TaskListComponent.show tasks={@tasks} today={true} />
       </div>
     </div>
   </div>

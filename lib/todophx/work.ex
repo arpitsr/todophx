@@ -114,7 +114,7 @@ defmodule Todophx.Work do
 
   """
   def all_tasks() do
-    Repo.all(Task)
+    Repo.all(Task) |> Repo.preload([:project])
   end
 
   def list_tasks(project_id) do
@@ -139,7 +139,7 @@ defmodule Todophx.Work do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id), do: Repo.get!(Task, id) |> Repo.preload([:project])
 
   @doc """
   Creates a task.

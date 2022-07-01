@@ -1,14 +1,15 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 /* This file is for your main application CSS */
 
 /* Alerts and form errors used by phx.new */
 
 body {
-  font-family: 'Helvetica', 'Poppins', sans-serif;
-  font-size: 14px;
+  font-family: 'Kantumruy Pro', 'Open Sans', sans-serif;
 }
 
 /* Semi-transparent overlay container */

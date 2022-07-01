@@ -41,26 +41,17 @@ defmodule TodophxWeb.TodayLive do
     {:noreply, push_redirect(socket, to: TodophxWeb.Router.Helpers.today_path(socket, :index))}
   end
 
-  def handle_params(_params, _uri, socket) do
+  def handle_event(
+        "delete-task",
+        %{"task_id" => task_id},
+        socket
+      ) do
+    task = Todophx.Work.get_task!(task_id)
+    Work.delete_task(task)
     {:noreply, socket}
   end
 
-  def render(assigns) do
-    ~H"""
-    <NavbarComponent.render />
-    <div class="flex">
-      <div class="w-1/4 bg-gray-50">
-        <SidenavComponent.render projects={@projects}/>
-      </div>
-      <div class="w-3/4">
-        <div class="w-4/5 py-8 mx-auto">
-          <div class="mb-8 text-xl font-bold">Today</div>
-          <div id="tasks" phx-update="append">
-            <TodophxWeb.TaskListComponent.show tasks={@tasks} today={true} />
-          </div>
-        </div>
-      </div>
-    </div>
-    """
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
   end
 end

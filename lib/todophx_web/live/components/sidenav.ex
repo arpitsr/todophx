@@ -4,7 +4,7 @@ defmodule TodophxWeb.SidenavComponent do
 
   def render(assigns) do
     ~H"""
-    <div class="h-screen p-8">
+    <div class="h-screen px-8 py-10">
       <section class="flex flex-col gap-3">
         <div class="flex gap-4">
           <i class="ri-calendar-2-line"></i>
@@ -15,7 +15,7 @@ defmodule TodophxWeb.SidenavComponent do
           <div>Upcoming</div>
         </div>
       </section>
-      <section class="flex flex-col gap-8 mt-16">
+      <section class="flex flex-col gap-8 mt-10">
         <div class="flex justify-between gap-2 text-xl font-bold">
           <div>Projects</div>
           <a href="#" phx-click={JS.remove_class("hidden", to: "#new_project", transition: "fade-in")}>+</a>
