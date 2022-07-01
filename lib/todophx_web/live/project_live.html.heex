@@ -1,0 +1,27 @@
+<NavbarComponent.render />
+<div class="flex">
+    <div class="w-1/4 bg-gray-50">
+        <SidenavComponent.render projects={@projects} />
+    </div>
+    <div class="w-3/4">
+        <div class="w-4/5 py-10 mx-auto">
+            <div class="mb-6 text-xl font-bold">
+                <%= @project.name %>
+            </div>
+            <hr class="mb-12" />
+            <div id="tasks" phx-update="append">
+                <TodophxWeb.TaskListComponent.show tasks={@tasks} />
+            </div>
+            <div>
+                <.form let={f} for={Todophx.Work.change_task(%Todophx.Work.Task{})} phx-submit="new-task"
+                    class="flex mt-8">
+                    <%= hidden_input f, :project_id, value: @project_id %>
+                        <span class="text-p1">+ </span>
+                        <%= text_input f, :name, placeholder: " Add task" ,
+                            class: "border border-none p-0 focus:ring-transparent placeholder-p1 opacity-70 pl-2 focus:placeholder-transparent w-full"
+                            %>
+                </.form>
+            </div>
+        </div>
+    </div>
+</div>

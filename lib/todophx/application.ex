@@ -15,10 +15,21 @@ defmodule Todophx.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Todophx.PubSub},
       # Start the Endpoint (http/https)
-      TodophxWeb.Endpoint
+      TodophxWeb.Endpoint,
       # Start a worker by calling: Todophx.Worker.start_link(arg)
       # {Todophx.Worker, arg}
+      {Desktop.Window,
+       [
+         app: :todophx,
+         id: Todophx,
+         ize: {600, 500},
+         title: "Todophx",
+         icon: "icon.png",
+         url: &TodophxWeb.Endpoint.url/0
+       ]}
     ]
+
+    :session = :ets.new(:session, [:named_table, :public, read_concurrency: true])
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
