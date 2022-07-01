@@ -4,9 +4,18 @@ defmodule Todophx.Application do
   @moduledoc false
 
   use Application
+  require Logger
+
+  def config_dir() do
+    Path.join([Desktop.OS.home(), ".config", "todophx"])
+  end
 
   @impl true
   def start(_type, _args) do
+    File.mkdir_p!(config_dir())
+
+    Application.put_env(:todophx, Todophx.Repo, database: Path.join(config_dir(), "/database.sq3"))
+
     children = [
       # Start the Ecto repository
       Todophx.Repo,
@@ -33,7 +42,7 @@ defmodule Todophx.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Todophx.Supervisor]
+    opts = [strategy: :one_for_one, name: Todophx.Supervisor, max_restarts: 1]
     Supervisor.start_link(children, opts)
   end
 

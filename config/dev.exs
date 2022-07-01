@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :todophx, Todophx.Repo,
-  database: Path.expand("../todophx_dev.db", Path.dirname(__ENV__.file)),
+  database: Path.join([System.user_home!(), ".config", "todophx"]),
   pool_size: 5,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
