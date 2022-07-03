@@ -15,6 +15,8 @@ module.exports = {
       p2: "#eb8909",
       p3: "#246fe0",
       p4: "#666",
+      p5: "#f45d48",
+      p6: "#ef523c",
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

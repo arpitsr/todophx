@@ -1,0 +1,49 @@
+trix-editor {
+    margin-top: 0px !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+trix-editor {
+    min-height: 300px;
+    border: 1px solid #ddd;
+}
+
+.trix-min-height {
+    min-height: 300px;
+}
+
+trix-toolbar {
+    padding: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-bottom: 0px;
+    font-size: 1rem;
+    background-color: white;
+    margin-top: 0.5rem;
+    border-radius: 0.25rem;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+trix-toolbar .trix-button {
+    border-bottom: none;
+}
+
+trix-toolbar .trix-button-group {
+    border: none;
+    margin-bottom: 0;
+}
+
+trix-toolbar .trix-button:not(:first-child) {
+    border-left: 1px solid #fff;
+}
+
+trix-editor ul li,
+.trix-content ul li {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+.trix-content li {
+    margin-left: 0;
+}

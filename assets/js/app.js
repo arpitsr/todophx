@@ -24,6 +24,7 @@ import "phoenix_html";
 import Alpine from "alpinejs";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
+import "trix";
 import topbar from "../vendor/topbar";
 
 window.Alpine = Alpine;
@@ -123,7 +124,6 @@ window.liveSocket = liveSocket;
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
-  console.log("woh wala");
 
   let buffer = [];
   let lastKeyTime = Date.now();

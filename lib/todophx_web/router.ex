@@ -20,6 +20,7 @@ defmodule TodophxWeb.Router do
     live "/projects/:id", ProjectLive
     live "/", TodayLive, :index
     live "/today", TodayLive, :index
+    live "/notes", Live.NoteLive, :index
   end
 
   # Other scopes may use custom stacks.
