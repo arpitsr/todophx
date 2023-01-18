@@ -31,7 +31,7 @@ defmodule Todophx.Application do
        [
          app: :todophx,
          id: Todophx,
-         ize: {600, 500},
+         size: {600, 500},
          title: "Todophx",
          icon: "icon.png",
          url: &TodophxWeb.Endpoint.url/0
@@ -42,7 +42,7 @@ defmodule Todophx.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Todophx.Supervisor, max_restarts: 1]
+    opts = [strategy: :one_for_one, name: Todophx.Supervisor, max_restarts: 0]
     Supervisor.start_link(children, opts)
   end
 

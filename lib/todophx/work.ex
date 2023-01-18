@@ -8,6 +8,30 @@ defmodule Todophx.Work do
 
   alias Todophx.Work.Project
 
+  def today_tasks do
+    date = Timex.now()
+    today = Timex.beginning_of_day(date)
+
+    Repo.all(
+      from t in Todophx.Work.Task,
+        as: :task,
+        where: t.due_date <= ^today
+    )
+    |> Repo.preload([:project])
+  end
+
+  def upcoming_tasks do
+    date = Timex.now()
+    today = Timex.beginning_of_day(date)
+
+    Repo.all(
+      from t in Todophx.Work.Task,
+        as: :task,
+        where: t.due_date > ^today or is_nil(t.due_date)
+    )
+    |> Repo.preload([:project])
+  end
+
   @doc """
   Returns the list of projects.
 

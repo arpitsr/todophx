@@ -5,7 +5,7 @@ defmodule Todophx.MixProject do
     [
       app: :todophx,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -51,7 +51,7 @@ defmodule Todophx.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:timex, "~> 3.0"},
-      {:desktop, github: "elixir-desktop/desktop", tag: "v1.4.0"}
+      {:desktop, github: "elixir-desktop/desktop"}
     ]
   end
 

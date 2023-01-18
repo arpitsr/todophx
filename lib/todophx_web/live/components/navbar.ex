@@ -4,7 +4,7 @@ defmodule TodophxWeb.NavbarComponent do
 
   def render(assigns) do
     ~H"""
-    <header class="px-8 py-1 mx-auto bg-p1">
+    <header class="px-8 py-1 mx-auto bg-p6">
       <nav class="flex flex-wrap items-center justify-between rounded-full text-indigo-content">
         <a class="inline-flex items-center py-2 hover:no-underline" href="/">
           <div class="text-lg font-bold text-white">Today</div>

@@ -6,15 +6,16 @@ defmodule TodophxWeb.TodayLive do
   use Phoenix.HTML
   alias Todophx.Work
 
+  @impl true
   def mount(_params, %{}, socket) do
-    tasks = Work.all_tasks()
-
     {:ok,
      socket
+     |> assign(:uri_path, "")
      |> assign(:projects, Work.list_projects())
-     |> assign(:tasks, tasks), temporary_assigns: [tasks: []]}
+     |> assign(:tasks, []), temporary_assigns: [tasks: []]}
   end
 
+  @impl true
   def handle_event(
         "create-new-project",
         %{"project" => project_params},
@@ -51,7 +52,18 @@ defmodule TodophxWeb.TodayLive do
     {:noreply, socket}
   end
 
-  def handle_params(_params, _uri, socket) do
-    {:noreply, socket}
+  @impl true
+  def handle_params(_unsigned_params, uri, socket) do
+    tasks =
+      case URI.parse(uri).path do
+        "/upcoming" -> Work.upcoming_tasks()
+        _ -> Work.today_tasks()
+      end
+
+    {:noreply,
+     socket
+     |> assign(:projects, Work.list_projects())
+     |> assign(:tasks, tasks)
+     |> assign(:uri_path, URI.parse(uri).path)}
   end
 end

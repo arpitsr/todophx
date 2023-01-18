@@ -10,8 +10,8 @@ defmodule TodophxWeb.TaskListComponent do
   def show(assigns) do
     ~H"""
     <%= for task <- @tasks do %>
-      <div class="flex mb-6" id={"task-"<>to_string(task.id)}>
-        <.form let={f} for={Work.change_task(task)} phx-change="update-task-state" class="flex flex-col w-full">
+      <div class="flex justify-between mb-6" id={"task-"<>to_string(task.id)}>
+        <.form let={f} for={Work.change_task(task)} phx-change="update-task-state" class="flex flex-col w-2/3">
           <div class="flex items-start w-full gap-4">
             <%= hidden_input f, :id ,id: "hidden-input" <> to_string(task.id), value: task.id %>
             <div><%= checkbox f, :done, class: "w-4 h-4 rounded-full", id: "task-checkbox-" <> to_string(task.id) %></div>
@@ -28,6 +28,9 @@ defmodule TodophxWeb.TaskListComponent do
               <% end %>
               <%= date_input f, :due_date, id: "task-due-date-"<>to_string(task.id), placeholder: task.due_date, class: "absolute opacity-0 hover:cursor-pointer border-none bg-gray-50 text-xs p-0 focus:ring-transparent placeholder:text-red-50" %>
             </div>
+            <%= if task.due_date < Timex.today() do %>
+              <div class="ml-2 text-sm text-right text-white bg-red-600 rounded-lg px-1">delayed</div>
+            <% end %>
           </div>
         </.form>
         <!-- Delete task -->
