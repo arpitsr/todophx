@@ -12,7 +12,7 @@ defmodule TodophxWeb.SidenavComponent do
         </div>
         <div class="flex gap-4">
           <i class="ri-notification-badge-line"></i>
-          <div>Upcoming</div>
+          <a href="/upcoming">Upcoming</a>
         </div>
       </section>
       <section class="flex flex-col gap-8 mt-10">

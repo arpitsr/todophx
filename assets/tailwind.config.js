@@ -17,6 +17,8 @@ module.exports = {
       p4: "#666",
       p5: "#f45d48",
       p6: "#ef523c",
+      primary: "#c60000",
+      accent: "#fcf2f2",
       black: colors.black,
       white: colors.white,
       gray: colors.gray,

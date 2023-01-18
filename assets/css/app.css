@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 @import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
 @import "trix.css";
 @import "trix-custom.css";
 /* This file is for your main application CSS */
@@ -10,7 +11,7 @@
 /* Alerts and form errors used by phx.new */
 
 body {
-  font-family: 'Kantumruy Pro', 'Open Sans', sans-serif;
+  font-family: 'Outfit', 'Kantumruy Pro', 'Open Sans', sans-serif;
 }
 
 /* Semi-transparent overlay container */
