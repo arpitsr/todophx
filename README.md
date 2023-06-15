@@ -6,4 +6,3 @@ This is local first clone. Stores the data in local sqlite3 database.
 
 To start the application do ./run
 
-![Todophx](https://github.com/arpitsr/todophx/blob/main/image.jpg?raw=true)
