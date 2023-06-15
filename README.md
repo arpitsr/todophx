@@ -1,19 +1,9 @@
 # Todophx
 
-To start your Phoenix server:
+This is a clone of Todoist (bare minimum features implemented)
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+This is local first clone. Stores the data in local sqlite3 database.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To start the application do ./run
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+![Todophx](https://github.com/arpitsr/todophx/blob/main/image.jpg?raw=true)
